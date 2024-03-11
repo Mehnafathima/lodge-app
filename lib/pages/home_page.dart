@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
         // Removed Text widget if not needed
         backgroundColor: Colors.transparent, // Make AppBar transparent
