@@ -56,7 +56,7 @@ class MainPage extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           if (kDebugMode) {
-                            print('Pay button pressed for List $index');
+                            print('Pay button is being pressed for the list no: $index');
                           }
                         },
                         child:const  Text('Pay'),

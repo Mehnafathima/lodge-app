@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.analytics),
-            label: 'Analytics',
+            label: 'Graph',
           ),
         ],
         onTap: (index) {
