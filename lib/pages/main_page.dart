@@ -59,7 +59,7 @@ class MainPage extends StatelessWidget {
                             print('Pay button is being pressed for the list no: $index');
                           }
                         },
-                        child:const  Text('Pay'),
+                        child:const  Text('Click'),
                       ),
                     ],
                   ),
