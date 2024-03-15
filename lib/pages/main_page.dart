@@ -25,7 +25,7 @@ class MainPage extends StatelessWidget {
 
           Expanded(
             child: ListView.builder(
-              itemCount: 9, // Number of ListViews
+              itemCount: 12, // Number of ListViews
               itemBuilder: (context, index) {
                 return  Container(
                   height: 100, // Set your desired height for each ListView
