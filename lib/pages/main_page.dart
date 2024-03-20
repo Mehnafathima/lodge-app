@@ -32,7 +32,7 @@ class MainPage extends StatelessWidget {
                   margin: const EdgeInsets.all(8),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 193, 208, 197),
+                    color: Color.fromARGB(255, 197, 210, 200),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
