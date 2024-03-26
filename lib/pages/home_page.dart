@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lodge_management_app/customs/drawer_list.dart';
-import 'package:lodge_management_app/pages/manage_customer.dart';
-import 'package:lodge_management_app/pages/manage_room.dart';
-import 'main_page.dart';
-import 'room_list.dart';
-import 'calendar_page.dart';
+import 'package:lodge_management_app/models/room.dart'; // Import your room model
+import 'package:lodge_management_app/pages/main_page.dart';
+import 'package:lodge_management_app/pages/room_list.dart';
+import 'package:lodge_management_app/pages/calendar_page.dart';
+import 'package:lodge_management_app/services/firebase_service.dart'; // Import your Firebase service to fetch rooms
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,73 +13,55 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
+
+  late Future<List<Room>> _fetchRooms = Future.value([]); // Initialize with an empty list
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchRooms = FirebaseService().getRooms(); // Fetch rooms from Firebase
+  }
 
   // Create a list of pages to navigate to
-  final List<Widget> _pages =  [
-    const MainPage(),
+  List<Widget> get _pages => [
+    FutureBuilder<List<Room>>(
+      future: _fetchRooms,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          // Once data is fetched, construct the MainPage with the fetched rooms
+          return MainPage(rooms: snapshot.data!);
+        }
+      },
+    ),
     const RoomList(),
     const CalendarPage(),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "L E D G E R",
-          style: TextStyle(
-            color: Colors.brown,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: const Text("L E D G E R"),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.green,
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 10, 68, 12),
-              ),
-              child: Center(
-                child: Text(
-                  'Manage Data',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-            ),
-           DrawerTile(
-              icon: Icons.bed_outlined,
-              title: 'Manage Room',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RoomPage()),
-                );
-              },
-            ),
-            DrawerTile(
-              icon: Icons.person_2,
-              title: 'Manage Customer',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>  const CustomerPage()),
-                );
-              },
-            ),
-            // Add more list tiles for other data management options if needed
-          ],
-        ),
+      body: FutureBuilder<List<Room>>(
+        future: _fetchRooms,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            // Once data is fetched, construct the corresponding page
+            return _pages[_currentIndex];
+          }
+        },
       ),
-
-      body: _pages[_currentIndex], // Display the current page
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         selectedItemColor: const Color.fromARGB(255, 10, 68, 12),
@@ -93,13 +74,14 @@ class _HomePageState extends State<HomePage> {
           });
         },
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
+         
           BottomNavigationBarItem(
             icon: Icon(Icons.add_business),
             label: 'Bookings',
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.analytics),

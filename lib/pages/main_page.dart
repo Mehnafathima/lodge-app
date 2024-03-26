@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lodge_management_app/models/room.dart';
 import 'package:lodge_management_app/pages/booking_page.dart';
-// Import the booking page
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  final List<Room> rooms; // List of rooms
+
+  const MainPage({Key? key, required this.rooms}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Simulated list of rooms (replace with your actual logic to fetch rooms)
-    final List<Room> rooms = []; // Initialize as an empty list for now
-
     // Filter rooms with status true
-    final availableRooms = rooms.where((room) => room.status == true).toList();
+    final List<Room> availableRooms = rooms.where((room) => room.status).toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Available Rooms'),
-      ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
@@ -26,7 +21,7 @@ class MainPage extends StatelessWidget {
         ),
         itemCount: availableRooms.length,
         itemBuilder: (context, index) {
-          final room = availableRooms[index];
+          final Room room = availableRooms[index];
           return GestureDetector(
             onTap: () {
               // Navigate to booking page when room is tapped
@@ -39,8 +34,11 @@ class MainPage extends StatelessWidget {
             },
             child: Container(
               color: Colors.blueGrey,
-              child: const Center(
-                child: Icon(Icons.room), // Placeholder icon
+              child: Center(
+                child: Text(
+                  room.name,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
             ),
           );
