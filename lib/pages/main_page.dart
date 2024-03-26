@@ -1,74 +1,50 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lodge_management_app/models/room.dart';
+import 'package:lodge_management_app/pages/booking_page.dart';
+// Import the booking page
 
 class MainPage extends StatelessWidget {
- const MainPage({super.key});
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Simulated list of rooms (replace with your actual logic to fetch rooms)
+    final List<Room> rooms = []; // Initialize as an empty list for now
+
+    // Filter rooms with status true
+    final availableRooms = rooms.where((room) => room.status == true).toList();
+
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              'Todays Account',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.green[900],
-                fontWeight: FontWeight.w800,
+      appBar: AppBar(
+        title: const Text('Available Rooms'),
+      ),
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemCount: availableRooms.length,
+        itemBuilder: (context, index) {
+          final room = availableRooms[index];
+          return GestureDetector(
+            onTap: () {
+              // Navigate to booking page when room is tapped
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookingPage(room: room),
+                ),
+              );
+            },
+            child: Container(
+              color: Colors.blueGrey,
+              child: const Center(
+                child: Icon(Icons.room), // Placeholder icon
               ),
             ),
-          ),
-          //here i need a total of money collected that day , and if i recieve it on the smae day the status should turn green
-
-          Expanded(
-            child: ListView.builder(
-              itemCount: 12, // Number of ListViews
-              itemBuilder: (context, index) {
-                return  Container(
-                  height: 100, // Set your desired height for each ListView
-                  margin: const EdgeInsets.all(8),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 197, 210, 200),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Room $index',
-                              style:const  TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            // Add more widgets as needed for your content
-                            // For example, you can add ListTile, Image, etc.
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (kDebugMode) {
-                            print('Pay button is being pressed for the list number: $index');
-                          }
-                        },
-                        child:const  Text('Click'),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        
-        ],
+          );
+        },
       ),
     );
   }

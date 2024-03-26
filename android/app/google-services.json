@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "855187123216",
+    "project_id": "lodge-app-da2a2",
+    "storage_bucket": "lodge-app-da2a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855187123216:android:1955d26cb4a3e37fbfae95",
+        "android_client_info": {
+          "package_name": "com.example.lodge_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP8phrFtjS7BB251NYGvsUlgZYvf2EBz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
