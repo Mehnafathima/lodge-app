@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lodge_management_app/models/booking.dart';
+
 import 'package:lodge_management_app/models/room.dart';
 
 class FirebaseService {
@@ -20,6 +22,24 @@ class FirebaseService {
       return rooms;
     } catch (e) {
       throw Exception('Failed to fetch rooms: $e');
+    }
+  }
+
+    Future<void> saveBookingData(Map<String, dynamic> bookingData) async {
+    try {
+      await _firestore.collection('bookings').add(bookingData);
+    } catch (e) {
+      print('Error saving booking data: $e');
+      throw e; // Re-throw the error for handling in the UI
+    }
+  }
+
+    Future<void> updateRoomStatus(Room room) async {
+    try {
+      await _firestore.collection('rooms').doc(room.id).update({'status': false});
+    } catch (e) {
+      print('Error updating room status: $e');
+      throw e; // Re-throw the error for handling in the UI
     }
   }
 }

@@ -24,4 +24,15 @@ class Room {
       'status': status,
     };
   }
+  Room copyWith({
+    String? id,
+    String? name,
+    bool? status,
+  }) {
+    return Room(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      status: status ?? this.status,
+    );
+  }
 }
