@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lodge_management_app/models/booking.dart';
 import 'package:lodge_management_app/models/customer.dart';
 import 'package:lodge_management_app/models/room.dart';
+import 'package:lodge_management_app/pages/main_page.dart';
 import 'package:lodge_management_app/services/firebase_service.dart';
 
 class BookingPage extends StatefulWidget {
@@ -54,7 +55,6 @@ class _BookingPageState extends State<BookingPage> {
       _selectedCustomer = customerNames.isNotEmpty ? customerNames[0] : '';
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +67,10 @@ class _BookingPageState extends State<BookingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Text(
+                'Customer',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
               DropdownButtonFormField<String>(
                 value: _selectedCustomer,
                 onChanged: (value) {
@@ -76,14 +80,23 @@ class _BookingPageState extends State<BookingPage> {
                 },
                 items:
                     _buildCustomerDropdownItems(), // Implement this method to fetch customer data
-                decoration: const InputDecoration(labelText: 'Customer'),
+                decoration: const InputDecoration(
+                  labelText: 'Select Customer',
+                  border: OutlineInputBorder(),
+                ),
               ),
               const SizedBox(height: 20),
-              Text('Room: ${widget.room.name}'),
+              Text(
+                'Room: ${widget.room.name}',
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
               const SizedBox(height: 20),
               TextFormField(
                 controller: _rentController,
-                decoration: const InputDecoration(labelText: 'Rent per Day'),
+                decoration: const InputDecoration(
+                  labelText: 'Rent per Day',
+                  border: OutlineInputBorder(),
+                ),
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 20),
@@ -100,24 +113,30 @@ class _BookingPageState extends State<BookingPage> {
                     child: Text(mode),
                   );
                 }).toList(),
-                decoration: const InputDecoration(labelText: 'Payment Mode'),
+                decoration: const InputDecoration(
+                  labelText: 'Payment Mode',
+                  border: OutlineInputBorder(),
+                ),
               ),
               const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
                     child: ListTile(
-                      title: const Text('From Date:'),
+                      title: const Text('From Date'),
                       subtitle: Text(
-                          '${_selectedFromDate.day}/${_selectedFromDate.month}/${_selectedFromDate.year}'),
+                        '${_selectedFromDate.day}/${_selectedFromDate.month}/${_selectedFromDate.year}',
+                      ),
                       onTap: _selectFromDate,
                     ),
                   ),
+                  const SizedBox(width: 20),
                   Expanded(
                     child: ListTile(
-                      title: const Text('End Date:'),
+                      title: const Text('End Date'),
                       subtitle: Text(
-                          '${_selectedEndDate.day}/${_selectedEndDate.month}/${_selectedEndDate.year}'),
+                        '${_selectedEndDate.day}/${_selectedEndDate.month}/${_selectedEndDate.year}',
+                      ),
                       onTap: _selectEndDate,
                     ),
                   ),
@@ -126,7 +145,10 @@ class _BookingPageState extends State<BookingPage> {
               const SizedBox(height: 20),
               TextFormField(
                 controller: _advanceController,
-                decoration: const InputDecoration(labelText: 'Advance'),
+                decoration: const InputDecoration(
+                  labelText: 'Advance',
+                  border: OutlineInputBorder(),
+                ),
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 20),
@@ -140,8 +162,7 @@ class _BookingPageState extends State<BookingPage> {
       ),
     );
   }
-
-  List<DropdownMenuItem<String>> _buildCustomerDropdownItems() {
+List<DropdownMenuItem<String>> _buildCustomerDropdownItems() {
     // Map customer names to DropdownMenuItem<String> widgets
     return _customerNames.map((name) {
       return DropdownMenuItem<String>(
@@ -179,7 +200,7 @@ class _BookingPageState extends State<BookingPage> {
     }
   }
 
-  void _confirmBooking() {
+void _confirmBooking() {
   // Create booking data object
   final Map<String, dynamic> bookingData = {
     'customerId': _selectedCustomer, // Assuming _selectedCustomer is a Customer object with an id property
@@ -197,5 +218,11 @@ class _BookingPageState extends State<BookingPage> {
   // Update room status to false
   final updatedRoom = widget.room.copyWith(status: false);
   FirebaseService().updateRoomStatus(updatedRoom);
+
+  // Navigate back to the main page
+   Navigator.pop(context);
+
 }
+
+
 }
