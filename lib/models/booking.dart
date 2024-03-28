@@ -44,4 +44,5 @@ class Booking {
       'advance': advance,
     };
   }
+  
 }
