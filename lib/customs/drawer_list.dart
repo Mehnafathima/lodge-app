@@ -21,7 +21,7 @@ class DrawerTile extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 24,
+              size: 25,
               color: Colors.black54,
             ),
             const SizedBox(width: 20),

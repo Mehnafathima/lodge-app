@@ -28,7 +28,7 @@ class MainPage extends ConsumerWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Available Rooms'),
+            title: Text('Available Room'),
             backgroundColor: Color.fromARGB(255, 233, 169, 121), // Theme color
           ),
           body: Padding(

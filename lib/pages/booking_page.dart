@@ -143,7 +143,7 @@ class _BookingPageState extends State<BookingPage> {
               TextFormField(
                 controller: _advanceController,
                 decoration: const InputDecoration(
-                  labelText: 'Advance',
+                  labelText: 'ADvance',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
