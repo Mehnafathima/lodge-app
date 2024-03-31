@@ -39,7 +39,7 @@ class RoomList extends StatelessWidget {
                     ),// Change the color or replace with your widget
                     child: Center(
                       child: Text(
-                        'ROOM $index',
+                        'Room $index',
                         style: const TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),
