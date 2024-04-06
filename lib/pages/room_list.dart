@@ -40,7 +40,7 @@ class RoomList extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'ROOM $index',
-                        style: const TextStyle(fontSize: 18, color: Colors.white),
+                        style: const TextStyle(fontSize: 12, color: Colors.white),
                       ),
                     ),
                   );
