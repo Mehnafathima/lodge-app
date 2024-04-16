@@ -16,7 +16,7 @@ class RoomList extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w800,
-                color: Colors.green[900]
+                color: Colors.green[800]
               ),
             ),
           ),
