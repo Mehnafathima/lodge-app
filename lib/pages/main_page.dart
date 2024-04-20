@@ -52,6 +52,7 @@ class MainPage extends ConsumerWidget {
                       ),
                     ).then((value) {
                       // Refresh rooms when returning from booking page
+                      // ignore: unused_result
                       ref.refresh(roomsProvider);
                     });
                   },
