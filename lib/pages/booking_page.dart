@@ -9,6 +9,7 @@ class BookingPage extends StatefulWidget {
   const BookingPage({Key? key, required this.room}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _BookingPageState createState() => _BookingPageState();
 }
 
@@ -55,6 +56,8 @@ class _BookingPageState extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+            backgroundColor:Colors.white,
+
       appBar: AppBar(
         title: Text('Book ${widget.room.name}'),
       ),
