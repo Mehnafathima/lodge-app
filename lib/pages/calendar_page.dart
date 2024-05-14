@@ -12,7 +12,7 @@ class CalendarPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Mehna DONT SLACK OFF',
+              'Mehna DONT SLACK ',
               style: TextStyle(fontSize: 24),
             ),
             SizedBox(height: 20),
