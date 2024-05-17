@@ -48,7 +48,8 @@ Color appBarColor = const Color(0xFFFDD848);
         title: const Text("L E D G E R", style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
         foregroundColor: appBarColor,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        scrolledUnderElevation:null,
       ),
       body: IndexedStack(
         index: _currentIndex,
